@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title> Space-Shooter</title>
+  </head>
+  <body>
+    <canvas id="canvas" width="300" height="300"></canvas>
+   <!-- <img src="ship.png" alt=""> -->
+  </body>
+</html>
+
+<style media="screen">
+  #canvas{
+    border: 5px solid black;
+  }
+  body{
+    background-color: black;
+  }
+
+</style>
+
+
+<script type="text/javascript">
+
+var can=document.getElementById('canvas');
+var ctx=can.getContext('2d');
+can.width=800;
+can.height=650;
+ctx.fillStyle="#101022";
+ctx.fillRect(0,0,can.width,can.height);
+ship=new Image();
+alien=new Image();
+fire=new Image();
+ship.src="ship.png";
+alien.src="spaceoctopus.png";
+fire.src="fire.png";
+
+window.onload=function(){
+
+var
+x=100,
+y=563,
+fyre=0,
+speedx=0,
+speedy=0
+;
+
+var bullet={
+  x:can.with+10,
+  y:can.height+10,
+  speed:0
+};
+
+var ttt={
+  x:100,
+  y:100,
+  speedx:1,
+  speedy:1
+};
+
+function controller(e){
+  var f=e.keyCode;
+  if(f==37) speedx=-10;
+  if(f==39) speedx=10;
+  if(f==40) speedx=0;
+  if(f==88 && bullet.speed==0)
+  {
+       fyre=1;
+       bullet.x=x+24;
+       bullet.y=550;
+       bullet.speed=10;
+  }
+
+}
+
+
+function loop(){
+  ctx.fillStyle="#101022";
+  ctx.fillRect(0,0,can.width,can.height);
+
+
+ctx.drawImage(ship,x,y,60,85);
+
+ctx.drawImage(alien,ttt.x,ttt.y,100,80);
+ctx.fillStyle="white";
+ctx.fillRect(bullet.x,bullet.y,10,10);
+//ctx.fillRect(100,100,5,5);
+
+if(fyre!=0)
+{
+  ctx.drawImage(fire,100,100,100,100);
+  fyre++;
+  if(fyre>60) fyre=0;
+}
+
+if(x>can.width-80 && speedx>0) speedx=0;
+if(x<20 && speedx<0) speedx=0;
+x=x+speedx;
+ttt.x+=ttt.speedx;
+ttt.y+=ttt.speedy;
+if(bullet.y<0) bullet.speed=0;
+bullet.y=bullet.y-bullet.speed;
+window.requestAnimationFrame(loop);
+}
+
+loop();
+
+window.addEventListener("keydown",controller);
+//window.addEventListener("keyup",stop);
+
+}
+</script>
