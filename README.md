@@ -1,5 +1,4 @@
-# space-shooter
-(in development) 
+
 
 use ARROWs to move and X to shoot
 
